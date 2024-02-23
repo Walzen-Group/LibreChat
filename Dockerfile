@@ -9,6 +9,8 @@ WORKDIR /app
 RUN touch .env
 # Install call deps - Install curl for health check
 RUN apk --no-cache add curl && \
+    mkdir /.npm && \
+    chown -R 99:100 /.npm && \
     npm ci
 
 # React client build
