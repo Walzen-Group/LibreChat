@@ -1,5 +1,9 @@
 name: Docker Compose Build Latest Tag (Manual Dispatch)
 
+permissions:
+  contents: read
+  packages: write
+  
 # The workflow is manually triggered
 on:
   workflow_dispatch:
