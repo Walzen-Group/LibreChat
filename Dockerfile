@@ -7,6 +7,12 @@ WORKDIR /app
 # Allow mounting of these files, which have no default
 # values.
 RUN touch .env
+
+# Trying to fix ECONNRESET error
+RUN npm cache clean --force
+RUN rm -rf node_modules
+RUN rm -f package-lock.json
+RUN npm install
 # Install call deps - Install curl for health check
 RUN apk --no-cache add curl && \
     mkdir /.npm && \
