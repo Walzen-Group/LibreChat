@@ -1,7 +1,11 @@
-# Base node image
-FROM node:18-alpine AS node
+# v0.7.2
 
-COPY . /app
+# Base node image
+FROM node:20-alpine AS node
+
+RUN apk --no-cache add curl
+
+RUN mkdir -p /app && chown node:node /app
 WORKDIR /app
 
 # Allow mounting of these files, which have no default
@@ -19,9 +23,7 @@ RUN apk --no-cache add curl && \
     chown -R 99:100 /.npm && \
     npm ci
 
-# React client build
-ENV NODE_OPTIONS="--max-old-space-size=2048"
-RUN npm run frontend
+RUN mkdir -p /app/client/public/images /app/api/logs
 
 # Node API setup
 EXPOSE 3080
